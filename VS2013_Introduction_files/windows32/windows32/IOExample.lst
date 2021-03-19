@@ -1,0 +1,203 @@
+Microsoft (R) Macro Assembler Version 14.28.29337.0	    03/17/21 20:06:29
+IOExample.asm						     Page 1 - 1
+
+
+				.586
+				.MODEL FLAT
+
+				INCLUDE io.h
+			      C ; IO.H -- header file for I/O macros (listing suppressed)
+			      C .NOLIST      ; turn off listing
+			      C .LIST        ; begin listing
+			      C 
+
+				.STACK 4096
+
+ 00000000			.DATA
+ 00000000 45 6E 74 65 72	prompt BYTE    "Enter Your Weight:", 0
+	   20 59 6F 75 72
+	   20 57 65 69 67
+	   68 74 3A 00
+ 00000013  00000028 [		string  BYTE    40 DUP (?)
+	    00
+	   ]
+ 0000003B 00000000		sum			DWORD	0
+ 0000003F 57 65 69 67 68	resultLbl	BYTE  "Weight Loss for First Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 46 69 72 73
+	   74 20 4D 6F 6E
+	   74 68 00
+ 0000005B  0000000B [		weightLoss	BYTE    11 DUP (?), 0
+	    00
+	   ] 00
+ 00000067 57 65 69 67 68	resultLb2	BYTE  "Weight Loss for Second Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 53 65 63 6F
+	   6E 64 20 4D 6F
+	   6E 74 68 00
+ 00000084  0000000B [		weightLoss2	BYTE   11 DUP (?), 0
+	    00
+	   ] 00
+ 00000090 57 65 69 67 68	resultLb3	BYTE  "Weight Loss for Third Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 54 68 69 72
+	   64 20 4D 6F 6E
+	   74 68 00
+ 000000AC  0000000B [		weightLoss3	BYTE   11 DUP (?), 0
+	    00
+	   ] 00
+ 000000B8 57 65 69 67 68	resultLb4	BYTE  "Weight Loss for Fourth Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 46 6F 75 72
+	   74 68 20 4D 6F
+	   6E 74 68 00
+ 000000D5  0000000B [		weightLoss4	BYTE   11 DUP (?), 0
+	    00
+	   ] 00
+ 000000E1 57 65 69 67 68	resultLb5	BYTE  "Weight Loss for Fifth Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 46 69 66 74
+	   68 20 4D 6F 6E
+	   74 68 00
+ 000000FD  0000000B [		weightLoss5	BYTE   11 DUP (?), 0
+	    00
+	   ] 00
+ 00000109 57 65 69 67 68	resultLb6	BYTE  "Weight Loss for Sixth Month", 0
+	   74 20 4C 6F 73
+	   73 20 66 6F 72
+	   20 53 69 78 74
+	   68 20 4D 6F 6E
+	   74 68 00
+ 00000125  0000000B [		weightLoss6	BYTE   11 DUP (?), 0
+	    00
+	   ] 00
+ 00000131 00000001		i DWORD 1  ; 3 sets of numbers
+ 00000135 00000004		j DWORD 4  ; each set has 5 numbers
+
+ 00000000			.CODE
+ 00000000			_MainProc PROC
+
+ 00000000  8B 1D 00000131 R	           mov		ebx, i 
+ 00000006			forcount1:	
+ 00000006  8B 0D 00000135 R				mov		ecx, j		
+ 0000000C  C7 05 0000003B R				mov sum, 4	
+	   00000004
+
+ 00000016			forCount2:	input   prompt, string, 40		; prompt user for a number
+							atod    string	
+ 00000043  29 05 0000003B R				sub		sum, eax	; add the value of ECX to sum
+
+							
+
+
+						dtoa    weightLoss, sum			; convert sum to ASCII characters
+				        output  resultLbl, weightLoss	; output the sum to the console (55)
+
+						dtoa    weightLoss2, sum			
+				        output  resultLb2, weightLoss2
+
+						dtoa    weightLoss3, sum			
+				        output  resultLb3, weightLoss3
+
+						dtoa    weightLoss4, sum			
+				        output  resultLb4, weightLoss4
+
+						dtoa    weightLoss5, sum			
+				        output  resultLb5, weightLoss5
+
+						dtoa    weightLoss6, sum			
+				        output  resultLb6, weightLoss6
+
+						
+ 00000187  4B					dec ebx
+ 00000188  83 FB 00				cmp ebx,0
+ 0000018B  0F 85 FFFFFE75			jne forcount1
+
+ 00000191  C3			 ret
+ 00000192			_MainProc ENDP
+				END
+
+
+
+
+Microsoft (R) Macro Assembler Version 14.28.29337.0	    03/17/21 20:06:29
+IOExample.asm						     Symbols 2 - 1
+
+
+
+
+Macros:
+
+                N a m e                 Type
+
+atod . . . . . . . . . . . . . .	Proc
+atow . . . . . . . . . . . . . .	Proc
+dtoa . . . . . . . . . . . . . .	Proc
+input  . . . . . . . . . . . . .	Proc
+output . . . . . . . . . . . . .	Proc
+wtoa . . . . . . . . . . . . . .	Proc
+
+
+Segments and Groups:
+
+                N a m e                 Size     Length   Align   Combine Class
+
+FLAT . . . . . . . . . . . . . .	GROUP
+STACK  . . . . . . . . . . . . .	32 Bit	 00001000 Para	  Stack	  'STACK'	 
+_DATA  . . . . . . . . . . . . .	32 Bit	 00000139 Para	  Public  'DATA'	
+_TEXT  . . . . . . . . . . . . .	32 Bit	 00000192 Para	  Public  'CODE'	
+
+
+Procedures, parameters, and locals:
+
+                N a m e                 Type     Value    Attr
+
+_MainProc  . . . . . . . . . . .	P Near	 00000000 _TEXT	Length= 00000192 Public
+  forcount1  . . . . . . . . . .	L Near	 00000006 _TEXT	
+  forCount2  . . . . . . . . . .	L Near	 00000016 _TEXT	
+
+
+Symbols:
+
+                N a m e                 Type     Value    Attr
+
+@CodeSize  . . . . . . . . . . .	Number	 00000000h   
+@DataSize  . . . . . . . . . . .	Number	 00000000h   
+@Interface . . . . . . . . . . .	Number	 00000000h   
+@Model . . . . . . . . . . . . .	Number	 00000007h   
+@code  . . . . . . . . . . . . .	Text   	 _TEXT
+@data  . . . . . . . . . . . . .	Text   	 FLAT
+@fardata?  . . . . . . . . . . .	Text   	 FLAT
+@fardata . . . . . . . . . . . .	Text   	 FLAT
+@stack . . . . . . . . . . . . .	Text   	 FLAT
+_getInput  . . . . . . . . . . .	L Near	 00000000 FLAT	External
+_showOutput  . . . . . . . . . .	L Near	 00000000 FLAT	External
+atodproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+atowproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+dtoaproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+i  . . . . . . . . . . . . . . .	DWord	 00000131 _DATA	
+j  . . . . . . . . . . . . . . .	DWord	 00000135 _DATA	
+prompt . . . . . . . . . . . . .	Byte	 00000000 _DATA	
+resultLb2  . . . . . . . . . . .	Byte	 00000067 _DATA	
+resultLb3  . . . . . . . . . . .	Byte	 00000090 _DATA	
+resultLb4  . . . . . . . . . . .	Byte	 000000B8 _DATA	
+resultLb5  . . . . . . . . . . .	Byte	 000000E1 _DATA	
+resultLb6  . . . . . . . . . . .	Byte	 00000109 _DATA	
+resultLbl  . . . . . . . . . . .	Byte	 0000003F _DATA	
+string . . . . . . . . . . . . .	Byte	 00000013 _DATA	
+sum  . . . . . . . . . . . . . .	DWord	 0000003B _DATA	
+weightLoss2  . . . . . . . . . .	Byte	 00000084 _DATA	
+weightLoss3  . . . . . . . . . .	Byte	 000000AC _DATA	
+weightLoss4  . . . . . . . . . .	Byte	 000000D5 _DATA	
+weightLoss5  . . . . . . . . . .	Byte	 000000FD _DATA	
+weightLoss6  . . . . . . . . . .	Byte	 00000125 _DATA	
+weightLoss . . . . . . . . . . .	Byte	 0000005B _DATA	
+wtoaproc . . . . . . . . . . . .	L Near	 00000000 FLAT	External
+
+	   0 Warnings
+	   0 Errors
